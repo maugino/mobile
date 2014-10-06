@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    'License'); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    'AS IS' BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <meta name='format-detection' content='telephone=no' />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name='viewport' content='user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi' />
+
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <!-- App Framework CSS -->
+
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/icons.css' />
+
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/src/main.css'  />
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/src/appframework.css'  />
+
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/src/badges.css'  />
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/src/buttons.css'  />
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/src/lists.css'  />
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/src/forms.css'  />
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/src/grid.css'  />
+
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/plugins/css/af.actionsheet.css'  />
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/plugins/css/af.popup.css'  />
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/plugins/css/af.selectBox.css'  />
+
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/src/android.css'  />
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/src/win8.css'  />
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/src/bb.css'  />
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/src/ios7.css'  />
+        <link rel='stylesheet' type='text/css' href='js/libs/appframework/css/src/ios.css'  />
+
+        <!-- App Styles -->
+        <link rel='stylesheet' type='text/css' href='css/index.css' />
+	    <link rel='stylesheet' type='text/css' href='css/open-sans.css' />
+
+        <title>Docebo LMS mobile app</title>
+   </head>
+   <body>
+        <div id='afui' class=''>
+
+            <!-- this is the splashscreen you see. -->
+            <div id='splashscreen' class='ui-loader heavy'>
+                docebo
+                <br>
+                <br>
+                <span class='ui-icon ui-icon-loading spin'></span>
+                <h1>Loading...</h1>
+
+            </div>
+
+            <div id='header'>
+                <a id='menubadge' onclick='af.ui.toggleSideMenu()' class=''></a>
+            </div>
+            <div id='content'>
+
+                <nav id='main-nav'>
+                    <div class='title gray-user-profile'>
+                        <!-- User profile data will go here -->
+                    </div>
+                    <ul>
+                        <li><a id='courses-link'    href='#courses'></a></li>
+                        <li><a id='reports-link'    href='#reports'></a></li>
+                        <!-- disabled until version 2
+                        <li><a id='settings-link'   href='#settings'></a></li> -->
+                        <li><a id='logout-link'     ></a></li>
+                    </ul>
+
+                </nav>
+
+                <div id='main' title='' class='panel' selected='true'>
+                    <!--
+                        optionals properties for future references
+                        data-load='loadedPanel' data-unload='unloadedPanel' data-tab='navbar_home'>
+                    -->
+
+                    <div class='login-content'>
+                        <div class='grid'>
+                            <div class='col2'>
+                                <a>
+                                    <img src='img/logo_white.png'>
+                                </a>
+                            </div>
+                            <div class='col2'>
+                                <select id='language' class='transparent '>
+                                    <option value='en'>english</option>
+                                    <option value='it'>italiano</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <form id='login-form'>
+                            <input id='username'    class='login' data-touchlayer = 'ignore' type='text' autocapitalize='off'>
+                            <input id='password'    class='login' data-touchlayer = 'ignore' type='password' value='' autocapitalize='off'>
+                            <input id='website'     class='login' data-touchlayer = 'ignore' type='text' value='' autocapitalize='off'>
+                            <input id='do-login'    class='button green' type='submit'>
+                            <a id='recover-password'class='button flat'></a>
+                        </form>
+                    </div>
+                </div>
+                <div id='login-loader' class='panel' data-footer='none' style='text-align: center;'>
+
+                    <div class='loader-content'>
+                        <img>
+                    </div>
+
+                </div>
+                <!-- Courses List -->
+                <div title='' id='courses' class='panel white' data-footer='none' data-nav='main-nav' >
+                    <br>
+                    <input id='user-courses-search' type='search' placeholder='search courses' style='color: #53575E;'>
+                    <ul id='user-courses'>
+                        <!-- Courses list will go here through templates -->
+                    </ul>
+                </div>
+                <!-- Course Details -->
+                <div title='' id='course-details' class='panel white' data-footer='none' data-nav='main-nav' >
+                    <div id='course-info'>
+                        <img />
+                        <span>
+                            <!-- Selected course title and description will go here -->
+                        </span>
+                    </div>
+                    <ul id='course-items'>
+                        <!-- Courses items will go here through templates -->
+                    </ul>
+                </div>
+
+                <!-- Forgot password -->
+                <div title='' id='forgot-pwd' class='panel' data-footer='none' data-nav='main-nav'>
+
+                    <div class='forgot-pwd-content'>
+                        <div class='grid'>
+                            <div class='col2'>
+                                <a>
+                                    <img src='img/logo_white.png'>
+                                </a>
+                            </div>
+                            <div class='col2'>
+                                <!-- Eventually the selected language here -->
+                            </div>
+                        </div>
+                        <br>
+                        <p id='intro-text' class='forgot-pwd-text'>
+                            <!-- Multi language message will go here -->
+                        </p>
+                        <form id='recover-pwd-form'>
+                            <input id='e-mail'      class='login' type='text' autocapitalize='off'>
+                            <input id='reset-url'   class='login' type='text' autocapitalize='off'>
+                            <input id='do-recover'  class='button green' type='submit'>
+                        </form>
+                    </div>
+
+                </div>
+
+                <!-- Reports -->
+                <div title='Reports' id='reports' class='panel white' data-footer='none' data-nav='main-nav'>
+                    <iframe id = 'reports-content'>
+                        <html>
+                        <body>
+                        </body>
+                        </html>
+                    </iframe>
+
+                </div>
+
+                <!-- Settings -->
+                <div title='' id='settings' class='panel white' data-footer='none' data-nav='main-nav'>
+
+                    <p><!-- Settings description text --></p>
+                    <div class='input-settings'>
+
+                        <div id='push-notification-settings' class='table-thing with-label widget d-margins'>
+                            <label class='narrow-control label-inline'></label>
+                            <div class='wide-control'>
+                                <input type='checkbox' class='toggle' id='af-notification-settings' checked>
+                                <label id='push-notification-values'  for='af-notification-settings' data-off='' data-on=''>
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id='offline-notification-settings' class='table-thing with-label widget d-margins'>
+                            <label class='narrow-control label-inline'></label>
+                            <div class='wide-control'>
+                                <input type='checkbox' class='toggle' id='af-offline-settings'>
+                                <label for='af-offline-settings' data-off='No' data-on='Yes'>
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+
+                <!-- Logout -->
+                <div title='Logout' id='logout' class='panel white' data-footer='none' data-nav='main-nav'>
+                    <p>The logout will go here!</p>
+                </div>
+
+            </div>
+        </div>
+
+       <script type='text/javascript' src='cordova.js'></script>
+       <script data-main='js/app' src='js/libs/require/require.js'></script>
+
+   </body>
+</html>

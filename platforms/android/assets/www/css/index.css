@@ -1,0 +1,808 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+* {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+	-webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+	-webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+	-webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+	background-color: #E4E4E4;
+	background-image: linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+	background-image: -webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+	background-image: -ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #A7A7A7), color-stop(0.51, #E4E4E4));
+	background-attachment: fixed;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12px;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	text-transform: uppercase;
+	width: 100%;
+}
+
+/* Portrait layout (default) */
+.app {
+	background: url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+	position: absolute; /* position in the center of the screen */
+	left: 50%;
+	top: 50%;
+	height: 50px; /* text area height */
+	width: 225px; /* text area width */
+	text-align: center;
+	padding: 180px 0px 0px 0px; /* image height is 200px (bottom 20px are overlapped with text) */
+	margin: -115px 0px 0px -112px; /* offset vertical: half of image height and text area height */
+	/* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width: 400px) {
+	.app {
+		background-position: left center;
+		padding: 75px 0px 75px 170px; /* padding-top + padding-bottom + text area = image height */
+		margin: -90px 0px 0px -198px; /* offset vertical: half of image height */
+		/* offset horizontal: half of image width and text area width */
+	}
+}
+
+h1 {
+	font-size: 24px;
+	font-weight: normal;
+	margin: 0px;
+	overflow: visible;
+	padding: 0px;
+	text-align: center;
+}
+
+.event {
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	color: #FFFFFF;
+	font-size: 12px;
+	margin: 0px 30px;
+	padding: 2px 0px;
+}
+
+.event.listening {
+	background-color: #333333;
+	display: block;
+}
+
+.event.received {
+	background-color: #4B946A;
+	display: none;
+}
+
+@keyframes fade {
+	from {
+		opacity: 1.0;
+	}
+	50% {
+		opacity: 0.4;
+	}
+	to {
+		opacity: 1.0;
+	}
+}
+
+@-webkit-keyframes fade {
+	from {
+		opacity: 1.0;
+	}
+	50% {
+		opacity: 0.4;
+	}
+	to {
+		opacity: 1.0;
+	}
+}
+
+.blink {
+	animation: fade 3000ms infinite;
+	-webkit-animation: fade 3000ms infinite;
+}
+
+#logo {
+	background-image: url(../img/logo_white.png);
+	background-repeat: no-repeat;
+	height: 40px;
+	width: 171px;
+}
+
+/* ============= GRID SYSTEM ===================== */
+
+.col2 {
+	width: 50% !important;
+	float: left !important;
+}
+
+/* ============= LOGIN FORM ===================== */
+
+input.login {
+	background-repeat: no-repeat !important;
+	text-indent: 25px !important;
+	background-size: 18px auto !important;
+	background-position: 5px center !important;
+
+	color: #6B6B6B !important;
+
+	margin: 0 !important;
+	border-top-color: #fff !important;
+	border-left-color: #fff !important;
+	border-right-color: #fff !important;
+	border-radius: 0 !important;
+	border-bottom-color: #ccc !important;
+}
+
+input#username {
+	background-image: url(../img/user.png) !important;
+	background-origin: padding-box;
+}
+
+input#password {
+	background-image: url(../img/lock.png) !important;
+	background-origin: padding-box;
+}
+
+input#website {
+	background-image: url(../img/globe.png) !important;
+}
+
+#do-login {
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	appearance: none !important;
+
+	width: 100%;
+	color: white !important;
+	background-color: #53AB53 !important;
+	border-radius: 0 !important;
+	border: none !important;
+	text-shadow: none !important;
+	box-shadow: none !important;
+	border: none !important;
+	font-size: 14px !important;
+	text-shadow: none !important;
+	box-shadow: none !important;
+	border: none !important;
+	font-size: 16px !important;
+}
+
+a#recover-password {
+	border: transparent !important;
+	background: transparent !important;
+	color: white !important;
+	margin-top: 0 !important;
+
+	width: 100%;
+}
+
+select#language {
+	float: right !important;
+	background: transparent !important;
+	color: white !important;
+	border: none !important;
+	font-size: 18px !important;
+	background-repeat: no-repeat !important;
+	background-position: right 86% !important;
+	background-image: url(../img/arrow-down.png) !important;
+	padding: 19px 16px 0 0;
+	direction: rtl;
+}
+
+.unhappyMessage {
+	background-color: #fff4c9;
+	position: absolute;
+	right: 0;
+	color: #53575E;
+	padding: 2px 2px 2px 6px;
+	border-radius: 6px;
+	border-color: #ffe79e;
+	box-shadow: 0 2px 2px 0 rgba(82, 90, 104, 0.2);
+	-moz-transition: opacity 1s ease-in-out;
+	-o-transition: opacity 1s ease-in-out;
+	-ms-transition: opacity 1s ease-in-out;
+	transition: opacity 1s ease-in-out;
+}
+
+.removeErrorMessage {
+	opacity: 0;
+}
+
+/* ================================== */
+
+/* ============= FORGOT PASSWORD ===================== */
+
+#do-recover {
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	appearance: none !important;
+
+	width: 100%;
+	color: white !important;
+	background-color: #53AB53 !important;
+	border-radius: 0 !important;
+	border: none !important;
+
+	text-shadow: none !important;
+	font-size: 14px !important;
+}
+
+.forgot-pwd-content {
+	overflow: auto;
+	margin: auto 5px auto 5px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: 290px;
+}
+
+.forgot-pwd-text {
+	font-size: 11px !important;
+	line-height: 1em !important;
+}
+
+input#e-mail {
+	background-image: url(../img/email.png) !important;
+}
+
+input#reset-url {
+	background-image: url(../img/globe.png) !important;
+}
+
+/* ================================== */
+
+/* side menu - always hidden */
+#afui nav {
+	display: none;
+}
+
+@media handheld, only screen and (min-width: 768px) {
+	#afui > #navbar.hasMenu, #afui > #header.hasMenu, #afui > #content.hasMenu {
+		position: absolute;
+		left: 256px;
+		-webkit-transition: transform 0ms;
+		-webkit-transform: translate3d(0, 0, 0) !important;
+		transition: transform 0ms;
+		transform: translate(0, 0) !important;
+	}
+}
+
+/* ======== Menu ======== */
+#afui nav {
+	display: none;
+}
+
+#afui > #menu {
+	z-index: 200;
+	width: 200px;
+	bottom: 0px;
+	height: 100%;
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: -200px;
+	background: rgba(29, 29, 28, 1);
+	-webkit-transform: translate3d(0, 0, 0);
+	-webkit-transition: all 300ms !important;
+	transform: translate3d(0, 0, 0);
+	transition: all 300ms !important;
+	background-color: #333 !important;
+}
+
+#menu_scroller {
+	padding-bottom: 10px;
+	width: 100% !important;
+}
+
+#menu > * {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#menu .title {
+	font-size: 14px;
+	color: #fff;
+	border-bottom: 1px solid #666;
+	margin-bottom: 3px;
+	font-weight: bold;
+}
+
+#menu ul {
+	margin: 0px;
+	padding: 0 10px 0 10px;
+	margin-bottom: 5px;
+}
+
+#menu ul > li {
+	padding-left: 0;
+	display: block;
+	width: 100%;
+	height: 48px;
+	min-height: 48px;
+	margin: 0;
+	list-style: none;
+	background: inherit;
+}
+
+/* A plain, non-interactive list item--best suited to a heading. */
+
+#menu ul > li > a {
+	display: block;
+	width: 100%;
+	height: 48px;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: normal;
+	font-size: 13px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 1px solid #666666 !important;
+	line-height: 48px;
+	text-decoration: none;
+	border-bottom: none;
+	color: #fff;
+	background: #333;
+}
+
+#menu ul > li > a:after {
+	content: "";
+}
+
+#menu ul > li:last-child > a {
+	border-bottom: 1px solid #666666;
+}
+
+#menu ul > li > a {
+	background-repeat: no-repeat !important;
+	text-indent: 42px !important;
+	background-size: 25px auto !important;
+	background-position: 5px center !important;
+}
+
+#menubadge {
+	visibility: hidden;
+}
+
+.gray-user-profile {
+	width: 100%;
+	background-color: #666666;
+	padding: 10px;
+}
+
+#menu #courses-link {
+	background-image: url(../img/courses-menu-icon.png) !important;
+}
+
+#menu #reports-link {
+	background-image: url(../img/reports-menu-icon.png) !important;
+}
+
+#menu #settings-link {
+	background-image: url(../img/settings-menu-icon.png) !important;
+}
+
+#menu #logout-link {
+	background-image: url(../img/logout-menu-icon.png) !important;
+}
+/*
+#afui .menuButton {
+	left: 10px !important;
+	top: 9px !important;
+}
+
+#afui .menuButton::after {
+	border-bottom: none !important;
+	border-top: none !important;
+	background: url(../img/docebo-top-right.png) no-repeat !important;
+	background-size: 40px;
+	height: 30px;
+	width: 40px;
+}
+*/
+
+#afui #menubadge {
+	background: url('../img/menu_icon.png') 50% 50% transparent;
+	background-repeat: no-repeat !important;
+	box-sizing: border-box;
+	cursor: pointer;
+	display: block;
+	height: 43px;
+	width: 50px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	line-height: 44px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	vertical-align: top;
+	visibility: hidden;
+	white-space: nowrap;
+	z-index: 1;
+}
+/* ======== End Menu ======== */
+
+/* ======== General Colors ======== */
+
+html {
+	background-color: #0465ac !important;
+}
+
+#afui #header {
+	background: #0465ac !important;
+	color: #FFFFFF !important;
+	border-bottom: 1px solid #0465ac !important;
+}
+
+#afui.ios > #header {
+	border-color: #0465ac !important;
+}
+
+#afui #backButton::before {
+	display: none;
+}
+
+#afui #backButton {
+	color: #2980B9 !important;
+	background-color: #0465ac !important;
+	background-repeat: no-repeat !important;
+	background-image: url(../img/arrow-left-background.png) !important;
+	background-size: 100% !important;
+	text-indent: -9999px !important;
+	height: 43px !important;
+	width: 50px;
+	border-radius: 0 !important;
+	margin: 0 !important;
+	border: none !important;
+	top: 0 !important;
+	left: 0 !important;
+	background-size: 100% 100% !important;
+}
+
+#afui #navbar {
+	background: #0465ac !important;
+	border-top: 1px solid #0465ac !important;
+	box-shadow: none !important;
+}
+
+#menu_scroller {
+	background-color: #333;
+}
+
+#afui #afSelectBoxfix .selected {
+	background: #0465ac !important;
+}
+
+#afui #afSelectBoxContainer #afSelectCancel {
+	background: #0465ac !important;
+}
+
+.panel {
+	background: #0465ac !important;
+}
+
+.panel.white {
+	color: white !important;
+}
+
+#afui #content {
+	bottom: 0px !important;
+}
+/*
+.moveDown {
+	-webkit-transition: .2s ease-in-out;
+	-webkit-transform: translate3d(0, 15px, 0) !important;
+}
+*/
+/* ======== End General Colors ======== */
+
+/* ======== Login Panel ======== */
+
+.login-content {
+	overflow: auto;
+	margin: auto 15px auto 15px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: 310px;
+}
+
+.loader-content {
+	position: absolute;
+	top: 40px;
+	left: 0;
+	right: 0;
+}
+
+/* ======== End Login Panel ======== */
+
+/* ======== Settings Panel ======== */
+
+#settings {
+	background-color: #EFF3F3 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+#settings > p:first-of-type {
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #666666 !important;
+}
+
+#intro-text {
+	color: white !important;
+}
+
+.input-settings {
+	color: #666666 !important;
+	font-size: 9px !important;
+	border-top: 1px solid #CACFD2;
+	border-bottom: 1px solid #CACFD2;
+	background-color: #ffffff;
+}
+
+.input-settings .wide-control {
+	padding: 2px;
+}
+
+#offline-notification-settings {
+	display: none !important;
+}
+
+/* ======== End Settings Panel ======== */
+
+/* ========== Course Panel ========== */
+
+#courses {
+	background-color: #EFF3F3 !important;
+}
+
+#user-courses-search {
+	background-repeat: no-repeat !important;
+	text-indent: 35px !important;
+	background-size: 25px auto !important;
+	background-position: 5px center !important;
+
+	color: #6B6B6B !important;
+	margin: 0 !important;
+	border-color: #ccc !important;
+	border-radius: 0 !important;
+	box-shadow: 2px 2px 5px #cccccc !important;
+	padding: 10px 0 10px 0 !important;
+
+	background-image: url(../img/magnifier.png) !important;
+}
+
+#courses ul {
+	margin-top: 10px !important;
+	border: 1px solid #ccc !important;
+	border-left: 0 !important;
+	border-right: 0 !important;
+	border-bottom: 0 !important;
+	list-style-type: none;
+	margin-left: 0;
+	padding-left: 0;
+	display: inline-block !important;
+	width: 100%;
+}
+
+#courses ul > li {
+	margin-top: 4px;
+	padding-bottom: 4px;
+	border-bottom: 1px solid #cccccc;
+}
+
+#courses ul li img {
+	float: left;
+	width: 90px;
+	height: 90px;
+	background-position: top;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-right: 10px;
+}
+
+.course {
+	width: 90% !important;
+	position: relative;
+}
+
+.course .grid {
+	min-height: 90px;
+}
+
+.course strong {
+	color: #0465ac;
+	padding-left: 6px;
+	text-transform: none !important;
+	font-size: 14px;
+}
+
+.course div {
+	text-align: center;
+	display: inline-block;
+	padding-left: 2px;
+	position: absolute;
+	bottom: 0;
+}
+
+.course div p {
+	display: inline-block !important;
+	vertical-align: middle !important;
+	line-height: normal;
+	text-transform: none !important;
+	width: auto !important;
+	min-width: 30px;
+	font-size: 12px !important;
+}
+
+.course-status {
+	color: #ffffff;
+	background-color: #DB7633;
+	height: 18px !important;
+	width: 30px !important;
+	padding: 0 2px 0 2px !important;
+}
+
+.course-lang {
+	color: #ffffff;
+	background-color: #566473;
+	height: 18px !important;
+	width: 30px !important;
+}
+
+.open-details {
+	height: 90px !important;
+	width: 23px !important;
+	background: url(../img/arrow-right.png) no-repeat center;
+}
+
+.open-details > a {
+	height: 41px;
+	width: 23px;
+	position: absolute;
+}
+
+.detail-disclosure {
+	text-indent: -9999px;
+	overflow: hidden;
+}
+
+.detail-disclosure * {
+	display: none;
+}
+
+/* =============== details ============= */
+#course-details {
+	background-color: #EFF3F3 !important;
+	padding: 0 !important;
+}
+
+#course-info {
+	color: #0465ac !important;
+	background-color: #ffffff !important;
+	overflow: auto;
+	border-bottom: 1px solid #CACFD2;
+}
+
+#course-info > img {
+	vertical-align: top !important;
+	max-width: 50%;
+	margin-right: 8px;
+	float: left;
+	max-height: 90px;
+}
+
+#course-info p, #course-info span {
+	display: block;
+	width: 100% !important;
+	font-size: 14px !important;
+	line-height: 14px !important;
+	text-transform: none;
+	padding: 8px;
+}
+
+#course-items li {
+	line-height: 45px;
+	border-bottom: 1px solid #CACFD2;
+	margin: 0 !important;
+}
+
+#course-items li strong {
+	color: #333333 !important;
+}
+
+#course-items .course {
+	width: 100% !important;
+	margin: 0 2px 2px 4px;
+	height: 45px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #333333 !important;
+}
+
+#course-items .right-arrow-container {
+	float: right;
+	height: 45px;
+	margin-right: 4px;
+	right: 10px;
+}
+
+#course-items .right-arrow-container > img {
+	height: 25px;
+	margin-top: 11px;
+}
+
+#course-items .course > img {
+	vertical-align: middle;
+}
+
+.even {
+	min-height: 45px;
+	background-color: #EFF3F3;
+}
+
+.odd {
+	min-height: 45px;
+	background-color: #ffffff;
+}
+
+.vertical-spacer {
+	height: 100%;
+	min-height: 100%;
+}
+
+/* ======== End Course Panel ======== */
+
+/* ======== Stats Panel ======== */
+
+#reports {
+	background-color: #EFF3F3 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+#reports > p:first-of-type {
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #666666 !important;
+}
+
+#reports-content {
+	width: 100% !important;
+	height: 100% !important;
+	min-height: 450px;
+}
+
+/* ======== End Stats Panel ======== */
+
+#afui input[type="text"] {
+	background-color: #ffffff !important;
+}

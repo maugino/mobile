@@ -1,0 +1,23 @@
+<li data-url='{{link}}' data-can='{{permission.can}}' class='padd-right {{rowColorKind}}'>
+
+    <div class='grid'>
+        <div class='course col2'>
+            <img style='background-image: url({{thumb}})' src='img/is-allowed-{{permission.can}}.png' />
+            <strong>{{{name}}}</strong>
+
+            <br>
+
+            <div class='metadata'>
+                <p class='course-status'>{{status}}</p>
+
+                <p class='course-lang'>{{lang}}</p>
+            </div>
+        </div>
+
+        <div class='open-details col2'>
+            <a class='detail-disclosure'>
+                {{{description}}}
+            </a>
+        </div>
+    </div>
+</li>

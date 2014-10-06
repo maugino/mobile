@@ -1,0 +1,22 @@
+<li data-course='{{courseId}}' data-organization='{{organization}}' data-folder='{{isFolder}}' data-locked='{{isLocked}}' class='padd-right {{rowColorKind}}'>
+
+    <div class='course'>
+
+        {{#isLocked}}
+            <img src='img/locked-small.png'/>
+        {{/isLocked}}
+        {{^isLocked}}
+            <img src='img/{{courseType}}{{status}}.png'/>
+        {{/isLocked}}
+
+        <strong>{{title}}</strong>
+
+        {{#isFolder}}
+            <div class='right-arrow-container'>
+                <img src='img/arrow-right.png'/>
+            </div>
+        {{/isFolder}}
+
+    </div>
+
+</li>
